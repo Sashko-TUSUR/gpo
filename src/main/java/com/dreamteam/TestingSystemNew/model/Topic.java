@@ -23,36 +23,4 @@ public class Topic {
     @JoinColumn(name="id_didacticUnit")
     private DidacticUnit didacticUnit;
 
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public Long getId_topic() {
-        return id_topic;
-    }
-
-    public void setId_topic(Long id_topic) {
-        this.id_topic = id_topic;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public DidacticUnit getDidacticUnit() {
-        return didacticUnit;
-    }
-
-    public void setDidacticUnit(DidacticUnit didacticUnit) {
-        this.didacticUnit = didacticUnit;
-    }
 }

@@ -22,15 +22,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long Login;
-
-    public Long getLogin() {
-        return Login;
-    }
-
-    public void setLogin(Long login) {
-        Login = login;
-    }
 
     @NotEmpty(message = "*Пожалуйста, введите ваш логин")
     private String userName;
@@ -69,19 +60,19 @@ public class User {
     private List<Complexity> complexity;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_role")
     private Role role;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private List<Result> results;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private List<Test> test;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private List<Teacher> teachers;
 

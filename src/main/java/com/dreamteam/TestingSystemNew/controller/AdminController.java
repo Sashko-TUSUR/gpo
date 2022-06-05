@@ -5,12 +5,12 @@ import com.dreamteam.TestingSystemNew.payload.ApiResponse;
 import com.dreamteam.TestingSystemNew.payload.TeacherRequest;
 import com.dreamteam.TestingSystemNew.payload.СonstructorParam;
 import com.dreamteam.TestingSystemNew.service.UserService;
+import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 @RestController
@@ -32,10 +32,20 @@ public class AdminController {
     }
 
     @GetMapping ("/get/constructor")
-    public Object randNumber(@RequestParam int chisl,@RequestParam int znam)
+    public Object randNumber()
     {
         return сonstructorParam.something();
     }
+
+    @PostMapping("/get/constructor")
+    public  ResponseEntity<?> checkAnswer(@RequestParam(value = "sing") String sign, @RequestParam int numerator_degree,
+                              @RequestParam int denominator, @RequestParam int numerator)
+    {
+         сonstructorParam.result(sign,numerator_degree,denominator,numerator);
+        return ResponseEntity.ok(new ApiResponse(true, "Задание выполнено верно"));
+    }
+
+
 
     @PostMapping("/subject/add")
     public ResponseEntity<?> saveSubject(@RequestParam(value = "title") String title){

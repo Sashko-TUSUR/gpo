@@ -33,35 +33,4 @@ public class Question {
     }
 
 
-    public Long getId_question() {
-        return id_question;
-    }
-
-    public void setId_question(Long id_question) {
-        this.id_question = id_question;
-    }
-
-    public String getQuestionJSON() {
-        return questionJSON;
-    }
-
-    public void setQuestionJSON(String questionJSON) {
-        this.questionJSON = questionJSON;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
-
-    public Complexity getComplexity() {
-        return complexity;
-    }
-
-    public void setComplexity(Complexity complexity) {
-        this.complexity = complexity;
-    }
 }

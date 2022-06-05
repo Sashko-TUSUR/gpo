@@ -23,10 +23,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
@@ -56,6 +53,7 @@ public class LoginController {
     JwtTokenProvider tokenProvider;
 
     @PostMapping("/signin")
+    ////@RequestMapping(value = "/signin", method = { RequestMethod.GET, RequestMethod.POST })
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getUserName();
         String password = loginRequest.getPassword();
@@ -86,12 +84,12 @@ public class LoginController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody UserRequest signUpRequest) {
         if (userRepository.existsByUserName(signUpRequest.getUserName())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+            return new ResponseEntity(new ApiResponse(false, "Пользователь с таким логином занято!"),
                     HttpStatus.BAD_REQUEST);
         }
 
         // создание аккаунта
-        Role userRole = roleRepository.findByName(String.valueOf(RoleName.ROLE_STUDENT))
+        Role userRole = roleRepository.findByRole(String.valueOf(RoleName.ROLE_STUDENT))
                 .orElseThrow(() -> new AppException("User Role not set."));
         Groups group = groupsRepository.getByName(signUpRequest.getNumberGroup());
 
@@ -105,6 +103,6 @@ public class LoginController {
         user.setGroups(Collections.singletonList(group));
         userRepository.save(user);
 
-        return ResponseEntity.ok(new ApiResponse(true, "User registered successfully"));
+        return ResponseEntity.ok(new ApiResponse(true, "Вы успешно зарегистрировались"));
     }
 }

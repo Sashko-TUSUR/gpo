@@ -28,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         prePostEnabled = true
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     MyUserDetailsService customUserDetailsService;
 
@@ -63,9 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     ConverterJSON converterJSON() {return new ConverterJSON();}
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .cors()
                 .and()
                 .csrf()
@@ -78,6 +81,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/",
+                        "/index",
+                        "/index.html",
                         "/favicon.ico",
                         "/**/*.png",
                         "/**/*.gif",
@@ -85,7 +90,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
+                        "/**/*.map",
+                        "/**/*.js",
+                        "/build/static/js/*.js")
                 .permitAll()
                 .antMatchers("/api/auth/**")
                 .permitAll()

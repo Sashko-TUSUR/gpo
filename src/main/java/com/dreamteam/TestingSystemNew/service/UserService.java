@@ -165,7 +165,7 @@ public class UserService {
     /*Добавление группы*/
     public void saveGroup(String number){
         Groups group = new Groups();
-        group.getName(number);
+        group.setName(number);
         groupRepository.save(group);
     }
 

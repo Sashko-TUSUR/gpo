@@ -26,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Constructor;
 import java.util.Collections;
 
 @RestController
@@ -52,8 +53,25 @@ public class LoginController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
+    @Autowired
+    RandomNumber randomNumber;
+
+    @GetMapping ("/get/constructor")
+    public Object randNumber()
+    {
+        return randomNumber.number();
+    }
+
+
+    @PostMapping("/get/constructor")
+    public Object CheckResult(@RequestParam(defaultValue = "+") String sign,@RequestParam int NumeratorD,
+                              @RequestParam int Denominator, @RequestParam int Numerator )
+    {
+        return randomNumber.checkResult(sign, NumeratorD, Denominator, Numerator);
+    }
+
+
     @PostMapping("/signin")
-    ////@RequestMapping(value = "/signin", method = { RequestMethod.GET, RequestMethod.POST })
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getUserName();
         String password = loginRequest.getPassword();
@@ -66,14 +84,14 @@ public class LoginController {
                     )
             );
         } catch (AuthenticationException e) {
-            logger.error("Invalid username/password supplied");
-            throw new BadCredentialsException("Invalid username/password supplied");
+            logger.error("Неверное предоставленное имя пользователя/пароль");
+            throw new BadCredentialsException("Неверное предоставленное имя пользователя/пароль");
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         User user = userRepository.findByUserName(username)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("User not found with username: " + username)
+                        new UsernameNotFoundException("Пользователь не найден с именем пользователя: " + username)
                 );
 
         String jwt = tokenProvider.generateToken(authentication);

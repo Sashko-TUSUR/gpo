@@ -31,19 +31,7 @@ public class AdminController {
         return ResponseEntity.ok(new ApiResponse(true, "Success add group!"));
     }
 
-    @GetMapping ("/get/constructor")
-    public Object randNumber()
-    {
-        return сonstructorParam.something();
-    }
 
-    @PostMapping("/get/constructor")
-    public  ResponseEntity<?> checkAnswer(@RequestParam(value = "sing") String sign, @RequestParam int numerator_degree,
-                              @RequestParam int denominator, @RequestParam int numerator)
-    {
-         сonstructorParam.result(sign,numerator_degree,denominator,numerator);
-        return ResponseEntity.ok(new ApiResponse(true, "Задание выполнено верно"));
-    }
 
 
 
